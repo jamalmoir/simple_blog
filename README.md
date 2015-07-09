@@ -1,4 +1,4 @@
-##Synopsis
+##About
 
 A simple blogging platform made in Ruby with Sinatra.
 
