@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'sinatra/base'
+gem 'sinatra'
 
 group :test, :development do
   gem 'rspec'
