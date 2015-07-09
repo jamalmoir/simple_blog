@@ -9,6 +9,7 @@ class SimpleBlog < Sinatra::Base
   end
 
   get '/' do
+    @title = 'Home'
     erb :home
   end
 
