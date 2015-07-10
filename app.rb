@@ -49,6 +49,7 @@ class SimpleBlog < Sinatra::Base
   end
   
   get '/login' do
+    @title = 'Login'
     erb :login
   end
 
