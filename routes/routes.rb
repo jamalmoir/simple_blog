@@ -4,29 +4,34 @@ module Sinatra
     
       def self.registered(app)
         app.not_found do
-         halt 404, 'Page not found.'
+          halt 404, 'Page not found.'
         end
 
         app.get '/' do
-         @title = 'Home'
-         erb :home
+          @title = 'Home'
+          erb :home
         end
 
         app.get '/login' do
-         @title = 'Login'
-         erb :login
+          @title = 'Login'
+          erb :login
+        end
+
+        app.get '/setup' do
+          @title = 'setup'
+          erb :setup
         end
 
         app.get '/new_post' do
-         erb :new_post
+          erb :new_post
         end
 
         app.get '/:id' do
-         erb :single_post
+          erb :single_post
         end
 
         app.get '/:id/edit' do 
-         erb :edit_post
+          erb :edit_post
         end
 
         app.get '/:id/delete' do
