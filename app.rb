@@ -4,6 +4,9 @@ require 'sinatra'
 require 'bundler'
 require 'data_mapper'
 
+require_relative 'helpers'
+require_relative 'routes/routes'
+
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/simpleblog.db")
 
 class User
@@ -39,33 +42,7 @@ DataMapper.finalize.auto_upgrade!
 
 
 class SimpleBlog < Sinatra::Base
-  not_found do
-    halt 404, 'Page not found.'
-  end
+  helpers Sinatra::SimpleBlog::Helpers
 
-  get '/' do
-    @title = 'Home'
-    erb :home
-  end
-  
-  get '/login' do
-    @title = 'Login'
-    erb :login
-  end
-
-  get '/new_post' do
-    erb :new_post
-  end
-
-  get '/:id' do
-    erb :single_post
-  end
-
-  get '/:id/edit' do 
-    erb :edit_post
-  end
-
-  get '/:id/delete' do
-    erb :edit_post
-  end
+  register Sinatra::SimpleBlog::Routing  
 end

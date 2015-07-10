@@ -1,5 +1,5 @@
 module Sinatra
-  module SimpleBlog
+  module SimpleBlog 
     module Helpers
       #helpers    
     end
