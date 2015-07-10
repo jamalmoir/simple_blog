@@ -4,8 +4,6 @@ require 'sinatra'
 require 'bundler'
 require 'data_mapper'
 
-Bundler.require :default, ENV['RACK_ENV'].to_sym
-
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/simpleblog.db")
 
 class User
@@ -49,7 +47,7 @@ class SimpleBlog < Sinatra::Base
     @title = 'Home'
     erb :home
   end
-
+  
   get '/login' do
     erb :login
   end
