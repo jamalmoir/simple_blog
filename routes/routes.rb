@@ -20,11 +20,10 @@ module Sinatra
         end
 
         app.post '/login' do
-          user = User.first username: params[:username]
+          user = User.first(conditions: ["lower(username) = ? ", 
+                                                   params['username'].downcase])
 
-          if user == nil
-            redirect '/login'
-          end
+          redirect '/login' if user == nil
 
           password = user.password
 
