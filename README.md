@@ -3,8 +3,9 @@
 A simple blogging platform made in Ruby with Sinatra and Bootstrap.
 
 ##To Do
-* Make login and register page redirect to home if logged in
-* Display simple error messages to user when somethinggoes wrong
+* Make usernames not case sensitive
+* Add register validation
+* Display simple error messages to user when something goes wrong
 * Make first registered user an admin
 * Add creating editing and deleting post functionality
 * Make homepage display posts

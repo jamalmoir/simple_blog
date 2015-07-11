@@ -13,6 +13,8 @@ module Sinatra
         end
 
         app.get '/login' do
+          redirect '/' if login?
+
           @title = 'Login'
           erb :login
         end
@@ -34,6 +36,8 @@ module Sinatra
         end
 
         app.get '/register' do
+          redirect '/' if login?
+
           @title = 'register'
           erb :register
         end
