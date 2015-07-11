@@ -1,7 +1,7 @@
 module Sinatra
   module SimpleBlog
     module Routing
-    
+
       def self.registered(app)
         app.not_found do
           halt 404, 'Page not found.'
@@ -17,9 +17,19 @@ module Sinatra
           erb :login
         end
 
-        app.get '/setup' do
-          @title = 'setup'
-          erb :setup
+        app.get '/register' do
+          @title = 'register'
+          erb :register
+        end
+
+        app.post '/register' do
+          user = User.new
+          user.username = params[:username]
+          user.password = encrypt_sha2 params[:password]
+          user.created_at = Time.now
+          user.updated_at = Time.now
+          user.save
+          redirect '/'
         end
 
         app.get '/new_post' do

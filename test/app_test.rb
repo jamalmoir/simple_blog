@@ -24,12 +24,12 @@ class LoginTest < Test::Unit::TestCase
   end
 end
 
-class SetupTest < Test::Unit::TestCase
+class RegisterTest < Test::Unit::TestCase
   include Rack::Test::Methods
   def app() SimpleBlog end
 
-  def test_get_setup_page
-    get '/setup'
+  def test_get_register_page
+    get '/register'
     assert last_response.ok?
   end
 end
