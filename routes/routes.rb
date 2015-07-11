@@ -17,19 +17,35 @@ module Sinatra
           erb :login
         end
 
+        app.post '/login' do
+          user = User.first username: params[:username]
+
+          if user == nil
+            redirect '/login'
+          end
+
+          password = user.password
+
+          if encrypt_sha2(params[:password]) == password
+            session[:username] = user.username
+          end
+
+          redirect '/'
+        end
+
         app.get '/register' do
           @title = 'register'
           erb :register
         end
 
         app.post '/register' do
-          user = User.new
-          user.username = params[:username]
-          user.password = encrypt_sha2 params[:password]
-          user.created_at = Time.now
-          user.updated_at = Time.now
-          user.save
-          redirect '/'
+          #TODO: Validate
+          user = User.create(:username => params[:username],
+                     :password => encrypt_sha2(params[:password]),
+                     :created_at => Time.now,
+                     :updated_at => Time.now)
+          p user
+          redirect '/login'
         end
 
         app.get '/new_post' do

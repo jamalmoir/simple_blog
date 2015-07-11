@@ -1,4 +1,9 @@
 <div class="container">
   <h3>Recent Posts</h3>
-  
+  Session: <%= session[:username] %>
+  <h4>User List</h4>
+  <% @users = User.all
+      @users.each do |user| %>
+      <p><%= user.username %></p>
+    <% end %>
 </div>
