@@ -13,10 +13,30 @@ class User
   include DataMapper::Resource
 
   property :id,         Serial
-  property :username,   String,    :required => true
-  property :password,   String,    :required => true, :length => 64
+  property :username,   String,    :required => true,
+    :message => { :presence => "Please provide a username." }
+  property :password,   String,    :required => true, :length => 64,
+    :message => { :presence => "Please provide a password." }
+  property :email,      String,    :required => true, :unique => true,
+    :format  => :email_address,
+    :message => {
+      :presence  => "Please provide an email address.",
+      :is_unique => "Email already exists.",
+      :format    => "Please enter a valid email address."
+    }
   property :created_at, DateTime
   property :updated_at, DateTime
+
+  validates_with_method :username, :method => :unique_username_ignore_case,
+    :message => "This username already exists."
+  validates_length_of :username, :min => 2, :max => 30,
+    :message => "Username must be between two and thirty characters."
+  validates_length_of :password, :min => 5, :max => 40,
+    :message => "Password must be between five and forty characters."
+
+  def unique_username_ignore_case
+    User.first(conditions: ["lower(username) = ?", self.username.downcase]).nil?
+  end
 end
 
 class Post

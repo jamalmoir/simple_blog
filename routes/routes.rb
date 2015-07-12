@@ -47,7 +47,7 @@ module Sinatra
                      :password => encrypt_sha2(params[:password]),
                      :created_at => Time.now,
                      :updated_at => Time.now)
-          p user
+          redirect '/register' if user.id.nil?
           redirect '/login'
         end
 
