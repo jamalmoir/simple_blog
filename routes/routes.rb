@@ -20,10 +20,19 @@ module Sinatra
         end
 
         app.post '/login' do
-          user = User.first(conditions: ["lower(username) = ? ", 
+          user = User.first(conditions: ["lower(username) = ? ",
                                                    params['username'].downcase])
 
-          redirect '/login' if user == nil
+          if params[:username].empty? || params[:password].empty?
+            #message
+            redirect '/login'
+          elsif user == nil
+            #flash[:error] = 'Username or password is incorrect.'
+            redirect '/login'
+          elsif user.id == nil
+            #flash[:error] = 'Invalid login.'
+            redirect '/login'
+          end
 
           password = user.password
 
@@ -45,8 +54,10 @@ module Sinatra
           #TODO: Validate
           user = User.create(:username => params[:username],
                      :password => encrypt_sha2(params[:password]),
+                     :email => params[:email],
                      :created_at => Time.now,
                      :updated_at => Time.now)
+          p user
           redirect '/register' if user.id.nil?
           redirect '/login'
         end
