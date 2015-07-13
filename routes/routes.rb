@@ -11,24 +11,26 @@ module Sinatra
 
           redirect '/login' unless login?
 
+          @title = 'Home'
+
           unless session[:flash].nil?
             @flash = session[:flash]
             session[:flash] = nil
           end
 
-          @title = 'Home'
           erb :home
         end
 
         app.get '/login' do
           redirect '/' if login?
 
+          @title = 'Login'
+
           unless session[:flash].nil?
             @flash = session[:flash]
             session[:flash] = nil
           end
 
-          @title = 'Login'
           erb :login
         end
 
@@ -60,12 +62,13 @@ module Sinatra
         app.get '/register' do
           redirect '/' if login?
 
+          @title = 'Register'
+
           unless session[:flash].nil?
             @flash = session[:flash]
             session[:flash] = nil
           end
 
-          @title = 'register'
           erb :register
         end
 
@@ -86,7 +89,6 @@ module Sinatra
           if user.save
             redirect '/login'
           else
-            p user.errors
             session[:flash] = user.errors.full_messages.first
             redirect '/register'
           end
@@ -105,6 +107,22 @@ module Sinatra
           end
 
           erb :new_post
+        end
+
+        app.post '/new-post' do
+          post = Post.new(:title => params[:title],
+                          :content => params[:content],
+                          :user_id => session[:id],
+                          :created_at => Time.now,
+                          :updated_at => Time.now)
+
+          if post.save
+            redirect '/'
+          else
+            session[:flash] = post.errors.full_messages.first
+            redirect '/new-post'
+          end
+
         end
 
         app.get '/:id' do

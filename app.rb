@@ -51,6 +51,14 @@ class Post
   property :user_id,    Integer, :required => true
   property :created_at, DateTime
   property :updated_at, DateTime
+
+  # validation
+  validates_presence_of :title,
+    :message => 'Please provide a title.'
+  validates_presence_of :content,
+    :message => 'Please provice content.'
+  validates_presence_of :user_id,
+    :message => 'Something went wrong: User ID not provided'
 end
 
 class Page
