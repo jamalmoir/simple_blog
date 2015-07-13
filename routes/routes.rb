@@ -12,6 +12,7 @@ module Sinatra
           redirect '/login' unless login?
 
           @title = 'Home'
+          @posts = Post.all :order => :id.desc
 
           unless session[:flash].nil?
             @flash = session[:flash]

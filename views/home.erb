@@ -1,9 +1,13 @@
 <div class="container">
   <h3>Recent Posts</h3>
-  Session: <%= session[:username] %>
-  <h4>User List</h4>
-  <% @users = User.all
-      @users.each do |user| %>
-      <p><%= user.username %></p>
-    <% end %>
+  <% @posts.each do |post| %>
+    <div class="panel panel-default">
+      <div class="panel-heading"><strong><a href="/<%= post.id %>">
+            <%= post.title %></a></strong></div>
+      <div class="panel-body"><%= post.content %></div>
+      <div class="panel-footer">
+        <small>Posted <%= post.created_at %> </small>
+      </div>
+    </div>
+  <% end%>
 </div>
