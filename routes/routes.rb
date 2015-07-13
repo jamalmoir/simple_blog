@@ -51,6 +51,7 @@ module Sinatra
 
           if encrypt_sha2(params[:password]) == password
             session[:username] = user.username
+            session[:id] = user.id
           end
 
           redirect '/'
@@ -92,7 +93,7 @@ module Sinatra
 
         end
 
-        app.get '/new_post' do
+        app.get '/new-post' do
           erb :new_post
         end
 
@@ -100,7 +101,7 @@ module Sinatra
           erb :single_post
         end
 
-        app.get '/:id/edit' do 
+        app.get '/:id/edit' do
           erb :edit_post
         end
 
