@@ -9,6 +9,8 @@ module Sinatra
 
         app.get '/' do
 
+          redirect '/login' unless login?
+
           unless session[:flash].nil?
             @flash = session[:flash]
             session[:flash] = nil
