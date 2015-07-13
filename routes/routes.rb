@@ -94,6 +94,16 @@ module Sinatra
         end
 
         app.get '/new-post' do
+          @title = 'New Post'
+
+          redirect '/login' unless login?
+          redirect '/' unless session[:id] = 1
+
+          unless session[:flash].nil?
+            @flash = session[:flash]
+            session[:flash] = nil
+          end
+
           erb :new_post
         end
 
