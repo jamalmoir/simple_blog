@@ -45,6 +45,7 @@ end
 class Post
   include DataMapper::Resource
 
+  # attributes
   property :id,         Serial
   property :title,      String,  :required => true
   property :content,    Text,    :required => true

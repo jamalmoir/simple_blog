@@ -4,7 +4,6 @@ A simple blogging platform made in Ruby with Sinatra and Bootstrap.
 
 ##To Do
 * Add creating editing and deleting post functionality
-* Make homepage display posts
 * Add pagination to homepage
 * Make simple admin panel
 * Add comment on post functionality
