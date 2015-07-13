@@ -19,6 +19,16 @@ module Sinatra
       def username
         session[:username]
       end
+
+      def error_list(errors)
+        #{:email => [{:presence=>"..."}]}
+        @errors = []
+        errors.each do |key, value|
+          @errors.push value
+        end
+
+        @errors
+      end
     end
   end
 end

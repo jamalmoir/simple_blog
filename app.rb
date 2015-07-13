@@ -12,25 +12,30 @@ DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/simpleblog.db")
 class User
   include DataMapper::Resource
 
+  # attributes
   property :id,         Serial
-  property :username,   String,    :required => true,
-    :message => { :presence => "Please provide a username." }
-  property :password,   String,    :required => true, :length => 64,
-    :message => { :presence => "Please provide a password." }
-  property :email,      String,    :required => true, :unique => true,
-    :format  => :email_address,
-    :message => {
-      :presence  => "Please provide an email address.",
-      :is_unique => "Email already exists.",
-      :format    => "Please enter a valid email address."
-    }
+  property :username,   String
+  property :password,   String, :length => 64
+  property :email,      String
   property :created_at, DateTime
   property :updated_at, DateTime
 
-  validates_with_method :username, :method => :unique_username_ignore_case,
-    :message => "This username already exists."
+  # validation
+  validates_presence_of :username,
+    :message => 'Please provide a username.'
+  validates_with_method :username,
+    :method => :unique_username_ignore_case,
+    :message => 'This username already exists.'
   validates_length_of :username, :min => 2, :max => 30,
-    :message => "Username must be between two and thirty characters."
+    :message => 'Username must be between two and thirty characters.'
+  validates_presence_of :password,
+    :message => 'Please provide a password.'
+  validates_presence_of :email,
+    :message => 'Please provide an email.'
+  validates_uniqueness_of :email,
+    :message => 'This email address already exists.'
+  validates_format_of :email, :as => :email_address,
+    :message => 'Please enter a valid email address.'
 
   def unique_username_ignore_case
     User.first(conditions: ["lower(username) = ?", self.username.downcase]).nil?

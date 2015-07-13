@@ -8,12 +8,23 @@ module Sinatra
         end
 
         app.get '/' do
+
+          unless session[:flash].nil?
+            @flash = session[:flash]
+            session[:flash] = nil
+          end
+
           @title = 'Home'
           erb :home
         end
 
         app.get '/login' do
           redirect '/' if login?
+
+          unless session[:flash].nil?
+            @flash = session[:flash]
+            session[:flash] = nil
+          end
 
           @title = 'Login'
           erb :login
@@ -24,13 +35,13 @@ module Sinatra
                                                    params['username'].downcase])
 
           if params[:username].empty? || params[:password].empty?
-            #message
+            session[:flash] = 'Please provide a username and password'
             redirect '/login'
           elsif user == nil
-            #flash[:error] = 'Username or password is incorrect.'
+            session[:flash] = 'Username or password is incorrect.'
             redirect '/login'
           elsif user.id == nil
-            #flash[:error] = 'Invalid login.'
+            session[:flash] = 'Invalid login.'
             redirect '/login'
           end
 
@@ -46,20 +57,37 @@ module Sinatra
         app.get '/register' do
           redirect '/' if login?
 
+          unless session[:flash].nil?
+            @flash = session[:flash]
+            session[:flash] = nil
+          end
+
           @title = 'register'
           erb :register
         end
 
         app.post '/register' do
-          #TODO: Validate
-          user = User.create(:username => params[:username],
-                     :password => encrypt_sha2(params[:password]),
+
+          unless params[:password].empty?
+            encrypted_password = encrypt_sha2 params[:password]
+          else
+            encrypted_password = ''
+          end
+
+          user = User.new(:username => params[:username],
+                     :password => encrypted_password,
                      :email => params[:email],
                      :created_at => Time.now,
                      :updated_at => Time.now)
-          p user
-          redirect '/register' if user.id.nil?
-          redirect '/login'
+
+          if user.save
+            redirect '/login'
+          else
+            p user.errors
+            session[:flash] = user.errors.full_messages.first
+            redirect '/register'
+          end
+
         end
 
         app.get '/new_post' do
