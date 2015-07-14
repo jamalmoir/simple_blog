@@ -20,6 +20,16 @@ module Sinatra
         session[:username]
       end
 
+      def get_user_from_id(id)
+        user = User.get(id)
+        user
+      end
+
+      def get_name_from_id(id)
+        name = get_user_from_id(id).username
+        name
+      end
+
       def error_list(errors)
         #{:email => [{:presence=>"..."}]}
         @errors = []

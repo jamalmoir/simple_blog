@@ -135,6 +135,25 @@ module Sinatra
           @comments = PostComment.all(:post_id => params[:id])
           erb :single_post
 
+
+        end
+
+        app.post '/post/:id' do
+
+          @post = Post.get params[:id]
+
+          comment = PostComment.new(:content => params[:content],
+                                    :user_id => session[:id],
+                                    :post_id => @post.id,
+                                    :created_at => Time.now,
+                                    :updated_at => Time.now)
+
+          unless comment.save
+            session[:flash] = comment.errors.full_messages.first
+          end
+
+          redirect "/post/#{@post.id}"
+
         end
 
         app.get '/post/:id/edit' do

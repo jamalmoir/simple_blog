@@ -31,8 +31,8 @@
     <div class="panel panel-default">
       <div class="panel-body"><%= comment.content %></div>
       <div class="panel-footer">
-        <small>Posted <%= post.created_at %> by 
-        <%= User.get_name_from_id comment.user_id %></small>
+        <small>Posted <%= @post.created_at %> by 
+        <%= get_name_from_id comment.user_id %></small>
       </div>
     </div>
   <% end %>

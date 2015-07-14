@@ -39,10 +39,6 @@ class User
     User.first(conditions: ["lower(username) = ?", self.username.downcase]).nil?
   end
 
-  def get_name_from_id(id)
-    name = self.first(:id => id)
-    name.username
-  end
 end
 
 class Post
