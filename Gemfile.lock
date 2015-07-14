@@ -58,11 +58,14 @@ GEM
     json_pure (1.8.2)
     multi_json (1.11.2)
     power_assert (0.2.2)
+    puma (2.11.3)
+      rack (>= 1.1, < 2.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack-timeout (0.2.4)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -80,9 +83,8 @@ DEPENDENCIES
   data_mapper
   dm-sqlite-adapter
   json
+  puma
   rack-test
+  rack-timeout
   sinatra
   test-unit
-
-BUNDLED WITH
-   1.10.5
