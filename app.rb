@@ -101,6 +101,8 @@ class SimpleBlog < Sinatra::Base
 
   enable :sessions
 
+  set :method_override, true
+
   helpers Sinatra::SimpleBlog::Helpers
 
   register Sinatra::SimpleBlog::Routing

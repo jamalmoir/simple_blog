@@ -1,0 +1,13 @@
+<div class="container">
+  <h3>Delete?</h3>
+  <div class="alert alert-danger"><strong>Wait!</strong> Do you really want to delete this?</div>
+  <form class="form-horizonal" role="form" method="post"
+        name="delete-confirm" action="/post/<%= @post.id %>">
+        <input type="hidden" name="_method" value="delete">
+        <div class="form-group">
+          <div class="col-sm-offset-4 col-sm-10">
+            <button type="submit" class="btn btn-defualt">YES</button>
+          </div>
+        </div>
+  </form>
+</div>

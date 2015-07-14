@@ -161,10 +161,23 @@ module Sinatra
         end
 
         app.get '/post/:id/delete' do
-         erb :edit_post
+
+          @post = Post.get params[:id]
+
+          redirect '/login' unless login?
+          redirect '/' unless session[:id] == 1
+
+          @title = 'Delete'
+          erb :delete_post
+        end
+
+        app.delete '/post/:id' do
+          puts 'got to delete'
+          post = Post.get params[:id]
+          post.destroy
+          redirect '/'
         end
       end
-
     end
   end
 end
