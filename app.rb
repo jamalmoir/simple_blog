@@ -96,12 +96,16 @@ end
 
 DataMapper.finalize.auto_upgrade!
 
-
 class SimpleBlog < Sinatra::Base
 
   enable :sessions
 
   set :method_override, true
+
+  helpers do
+    include Rack::Utils
+    alias_method :h, :escape_html
+  end
 
   helpers Sinatra::SimpleBlog::Helpers
 
