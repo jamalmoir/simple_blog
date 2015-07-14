@@ -1,0 +1,39 @@
+<div class="container">
+  <h3><%= @post.title %></h3>
+  <div class="panel panel-default">
+    <div class="panel-body"><%= @post.content %></div>
+    <div class="panel-footer">
+      <small>Posted <%= @post.created_at %></small>
+    </div>
+  </div>
+  <% if login? %>
+    <form class="form-horizontal" role="form" method="post"
+          name="comment" action="/post/<%= @post.id %>">
+      <div class="form-group">
+        <label class="control-label col-sm-1" for="content">Comment:</label>
+        <div class="col-sm-3">
+          <textarea class="form-control" name="content"
+                    placeholder="Comment&hellip;"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-10">
+          <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+      </div>
+    </form>
+  <% else %>
+    <div class="alert alert-info">
+      <strong><a href='/login'>Please Log in to comment.</a></strong>
+    </div>
+  <% end %>
+  <% @comments.each do |comment| %>
+    <div class="panel panel-default">
+      <div class="panel-body"><%= comment.content %></div>
+      <div class="panel-footer">
+        <small>Posted <%= post.created_at %> by 
+        <%= User.get_name_from_id comment.user_id %></small>
+      </div>
+    </div>
+  <% end %>
+</div>

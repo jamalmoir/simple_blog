@@ -1,5 +1,3 @@
-ENV['RACK_ENV'] ||= 'development'
-
 require 'bundler'
 require 'sinatra/base'
 require 'data_mapper'
@@ -40,6 +38,11 @@ class User
   def unique_username_ignore_case
     User.first(conditions: ["lower(username) = ?", self.username.downcase]).nil?
   end
+
+  def get_name_from_id(id)
+    name = self.first(:id => id)
+    name.username
+  end
 end
 
 class Post
@@ -69,6 +72,7 @@ class PostComment
   property :id,         Serial
   property :content,    Text
   property :user_id,    Integer
+  property :post_id,    Integer
   property :created_at, DateTime
   property :updated_at, DateTime
 
@@ -77,6 +81,9 @@ class PostComment
     :message => 'Please provide content.'
   validates_presence_of :user_id,
     :message => 'Something went wrong: User ID not provided.'
+  validates_presence_of :post_id,
+    :message => 'Something went wrong: Post ID not provided.'
+
 end
 
 class Page

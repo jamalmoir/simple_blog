@@ -126,15 +126,22 @@ module Sinatra
 
         end
 
-        app.get 'post/:id' do
+        app.get '/post/:id' do
+
+          redirect '/login' unless login?
+
+          @post = Post.get params[:id]
+          @title = @post.title
+          @comments = PostComment.all(:post_id => params[:id])
           erb :single_post
+
         end
 
-        app.get 'post/:id/edit' do
+        app.get '/post/:id/edit' do
           erb :edit_post
         end
 
-        app.get 'post/:id/delete' do
+        app.get '/post/:id/delete' do
          erb :edit_post
         end
       end
