@@ -126,15 +126,15 @@ module Sinatra
 
         end
 
-        app.get '/:id' do
+        app.get 'post/:id' do
           erb :single_post
         end
 
-        app.get '/:id/edit' do
+        app.get 'post/:id/edit' do
           erb :edit_post
         end
 
-        app.get '/:id/delete' do
+        app.get 'post/:id/delete' do
          erb :edit_post
         end
       end

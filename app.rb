@@ -59,12 +59,30 @@ class Post
   validates_presence_of :content,
     :message => 'Please provice content.'
   validates_presence_of :user_id,
-    :message => 'Something went wrong: User ID not provided'
+    :message => 'Something went wrong: User ID not provided.'
+end
+
+class PostComment
+  include DataMapper::Resource
+
+  # attributes
+  property :id,         Serial
+  property :content,    Text
+  property :user_id,    Integer
+  property :created_at, DateTime
+  property :updated_at, DateTime
+
+  # validation
+  validates_presence_of :content,
+    :message => 'Please provide content.'
+  validates_presence_of :user_id,
+    :message => 'Something went wrong: User ID not provided.'
 end
 
 class Page
   include DataMapper::Resource
 
+  # attributes
   property :id,         Serial
   property :title,      String,  :required => true
   property :content,    Text,    :required => true

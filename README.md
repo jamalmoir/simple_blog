@@ -8,6 +8,7 @@ A simple blogging platform made in Ruby with Sinatra and Bootstrap.
 * Make simple admin panel
 * Add comment on post functionality
 * Add stalker metric based on visits and comments etc
+* Add timezone specific post times
 
 ## Author
 

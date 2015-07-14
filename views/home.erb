@@ -2,7 +2,7 @@
   <h3>Recent Posts</h3>
   <% @posts.each do |post| %>
     <div class="panel panel-default">
-      <div class="panel-heading"><strong><a href="/<%= post.id %>">
+      <div class="panel-heading"><strong><a href="/post/<%= post.id %>">
             <%= post.title %></a></strong></div>
       <div class="panel-body"><%= post.content %></div>
       <div class="panel-footer">
